@@ -34,7 +34,7 @@ def get_messages():
     except Exception as e:
         logging.error("Se ha lanzado una excepcion")
         logging.error(repr(e))
-
+    return "!", 200
 
 if bot.threaded:
     logging.info('Polling...')
