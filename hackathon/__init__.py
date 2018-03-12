@@ -26,5 +26,6 @@ bot = TeleBot(TOKEN, os.environ.get('POLLING', False))
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 import command
