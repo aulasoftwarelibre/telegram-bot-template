@@ -31,9 +31,10 @@ def get_messages():
     Se encarga de procesar los mensajes recibidos por el bot
     """
     try:
+        logging.info("Updating message")
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     except Exception as e:
-        logging.error("Se ha lanzado una excepcion")
+        logging.error("Exception raised")
         logging.error(repr(e))
         logging.error(traceback.format_exc())
     return "!", 200
