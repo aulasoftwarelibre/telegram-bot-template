@@ -1,39 +1,39 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import os
+from flask import Flask, request
 from hackathon import bot
 from webhook import set_webhook
 import json
 import logging
 import sys
-import webapp2
 import telebot
-
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.info('Starting...')
 
+app = Flask(__name__)
 
-class MeHandler(webapp2.RequestHandler):
+
+@app.route('/me', methods=['GET'])
+def send_me():
     """
     Devuelve información del bot
     """
-    def get(self):
-        me = bot.get_me()
-        self.response.write(json.dumps(me, default=lambda o: o.__dict__,
-                                       sort_keys=True, indent=4))
+    me = bot.get_me()
+    return json.dumps(me, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
-class WebhookHandler(webapp2.RequestHandler):
+@app.route('/webhook', methods=['POST'])
+def get_messages():
     """
     Se encarga de procesar los mensajes recibidos por el bot
     """
-    def post(self):
-        try:
-            bot.process_new_updates([telebot.types.Update.de_json(self.request.body['message'])])
-        except Exception as e:
-            logging.error("[2] Se ha lanzado una excepcion")
-            logging.error(repr(e))
+    try:
+        bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    except Exception as e:
+        logging.error("Se ha lanzado una excepcion")
+        logging.error(repr(e))
 
 
 if bot.threaded:
@@ -46,8 +46,6 @@ webhook = bot.get_webhook_info()
 if not webhook.url:
     set_webhook()
 
-logging.info('Listening...')
-app = webapp2.WSGIApplication([
-    ('/me', MeHandler),
-    ('/webhook', WebhookHandler),
-], debug=True)
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
