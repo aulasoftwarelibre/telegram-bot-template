@@ -27,9 +27,9 @@ def load(message):
     """
 
     chat_id = message.chat.id
-    data = chat.Chat.get_config(chat_id, 'memory').value
+    data = chat.Chat.get_config(chat_id, 'memory')
     if not data:
         bot.reply_to(message, "Aún no has guardado nada")
         return
 
-    bot.reply_to(message, "Dato recuperado: %s" % data)
+    bot.reply_to(message, "Dato recuperado: %s" % data.value)

@@ -25,5 +25,8 @@
       "description": "Random seed",
       "generator": "secret"
     }
+  },
+  "scripts": {
+    "postdeploy": "python webhook.py"
   }
 }
