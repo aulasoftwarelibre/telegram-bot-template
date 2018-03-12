@@ -31,6 +31,17 @@ class WebhookHandler(webapp2.RequestHandler):
     """
     def post(self):
         try:
+            body = json.loads(self.request.body)
+            msg = telebot.types.Message.de_json(body['message'])
+            new_messages = [msg]
+
+            try:
+                bot.process_new_messages(new_messages)
+            except Exception as e:
+                bot.send_message(msg.chat.id, "Error: %s" % (str(repr(e))))
+                logging.error("Se ha lanzado una excepcion")
+                logging.error(repr(e))
+
             bot.process_new_updates([telebot.types.Update.de_json(self.request.body['message'].decode('utf-8'))])
         except Exception as e:
             logging.error(repr(e))
