@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
 from flask import Flask, request
-from hackathon import bot
+from hackathon import bot, secret_token
 from webhook import set_webhook
 import json
 import logging
+import os
 import sys
 import telebot
+import traceback
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.info('Starting...')
@@ -24,7 +25,7 @@ def send_me():
     return json.dumps(me, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook'+secret_token, methods=['POST'])
 def get_messages():
     """
     Se encarga de procesar los mensajes recibidos por el bot
@@ -34,7 +35,9 @@ def get_messages():
     except Exception as e:
         logging.error("Se ha lanzado una excepcion")
         logging.error(repr(e))
+        logging.error(traceback.format_exc())
     return "!", 200
+
 
 if bot.threaded:
     logging.info('Polling...')
@@ -42,10 +45,7 @@ if bot.threaded:
     bot.polling()
     exit(0)
 
-webhook = bot.get_webhook_info()
-if not webhook.url:
-    set_webhook()
-
 if __name__ == '__main__':
+    set_webhook()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

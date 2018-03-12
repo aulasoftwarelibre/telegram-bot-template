@@ -13,13 +13,17 @@
     }
   ],
   "env": {
+    "BOT_TOKEN": {
+      "description": "The secret bot token.",
+      "required": true
+    },
     "HEROKU_APP_NAME": {
       "description": "Please re-enter your App Name from the top.",
       "required": true
     },
-    "BOT_TOKEN": {
-      "description": "The secret bot token.",
-      "required": true
+    "SECRET_TOKEN": {
+      "description": "Random seed",
+      "generator": "secret"
     }
   }
 }
