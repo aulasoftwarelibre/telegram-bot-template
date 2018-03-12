@@ -1,22 +1,30 @@
-import os
-
+# coding=utf-8
+from flask import Flask
 from telebot import TeleBot
 from dotenv import load_dotenv
+import os
+
 load_dotenv()
 
-token = os.environ.get('BOT_TOKEN')
-if not token:
+TOKEN = os.environ.get('BOT_TOKEN')
+if not TOKEN:
     raise Exception('No se ha definido BOT_TOKEN')
 
-secret_token = os.environ.get('SECRET_TOKEN', False)
-if not secret_token:
+SECRET_TOKEN = os.environ.get('SECRET_TOKEN', False)
+if not SECRET_TOKEN:
     raise Exception('No se ha definido SECRET_TOKEN')
 
-app_name = os.environ.get('HEROKU_APP_NAME', False)
-if not app_name:
+HEROKU_APP_NAME = os.environ.get('HEROKU_APP_NAME', False)
+if not HEROKU_APP_NAME:
     raise Exception('No se ha definido HEROKU_APP_NAME')
 
+DATABASE_URL = os.environ.get('DATABASE_URL', False)
+if not DATABASE_URL:
+    raise Exception('No se ha definido DATABASE_URL')
 
-bot = TeleBot(token, os.environ.get('POLLING', False))
+bot = TeleBot(TOKEN, os.environ.get('POLLING', False))
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 import command

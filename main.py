@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, request
-from hackathon import bot, secret_token
+from flask import request
+from hackathon import app, bot, SECRET_TOKEN
 from webhook import set_webhook
 import json
 import logging
@@ -13,8 +13,6 @@ import traceback
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.info('Starting...')
 
-app = Flask(__name__)
-
 
 @app.route('/me', methods=['GET'])
 def send_me():
@@ -25,7 +23,7 @@ def send_me():
     return json.dumps(me, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
-@app.route('/webhook'+secret_token, methods=['POST'])
+@app.route('/webhook' + SECRET_TOKEN, methods=['POST'])
 def get_messages():
     """
     Se encarga de procesar los mensajes recibidos por el bot

@@ -1,6 +1,8 @@
 Flask>=0.12,<1.0
+Flask-SQLAlchemy>=2.3,<3.0
 gunicorn>=19.4.5,<20.0
 oauthlib>=2.0,<3.0
+psycopg2-binary>=2.7,<3.0
 pyTelegramBotAPI>=3.6,<4.0
 python-dotenv>=0.8,<1.0
 SQLAlchemy>=1.1.12,<2.0

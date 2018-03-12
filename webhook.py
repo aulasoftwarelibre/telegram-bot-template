@@ -1,6 +1,6 @@
 import logging
 import sys
-from hackathon import bot, secret_token, app_name
+from hackathon import bot, SECRET_TOKEN, HEROKU_APP_NAME
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
@@ -15,7 +15,7 @@ def set_webhook(force=False):
         return
 
     logging.info('Setting webhook...')
-    response = bot.set_webhook(url="https://%s.herokuapp.com/webhook%s" % (app_name.strip(), secret_token.strip()))
+    response = bot.set_webhook(url="https://%s.herokuapp.com/webhook%s" % (HEROKU_APP_NAME.strip(), SECRET_TOKEN.strip()))
     logging.info(response)
 
 
