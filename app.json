@@ -13,12 +13,11 @@
     }
   ],
   "env": {
-    "BOT_TOKEN": {
-      "description": "The secret bot token.",
+    "HEROKU_APP_NAME": {
       "required": true
     },
-    "HEROKU_URL": {
-      "description": "The heroku app public url.",
+    "BOT_TOKEN": {
+      "description": "The secret bot token.",
       "required": true
     }
   }

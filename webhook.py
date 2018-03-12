@@ -9,14 +9,13 @@ logging.info('Setting webhook...')
 
 def set_webhook():
     '''
-    Configura el webhook del hackathon. Puede ejecutarse en local si se configura HEROKU_URL en el .env
-    En remoto ejecutar heroku ...
+    Configura el webhook del hackathon. Puede ejecutarse en local si se configura HEROKU_APP_NAME en el .env
     '''
-    heroku_url = os.environ.get('HEROKU_URL', False)
-    if not heroku_url:
-        raise Exception('No se ha definido HEROKU_URL')
+    app_name = os.environ.get('HEROKU_APP_NAME', False)
+    if not app_name:
+        raise Exception('No se ha definido HEROKU_APP_NAME')
 
-    response = bot.set_webhook(url="%s/webhook" % heroku_url.rstrip('/'))
+    response = bot.set_webhook(url="https://%s.herokuapp.com/webhook" % app_name.strip())
     logging.info(response)
 
 
