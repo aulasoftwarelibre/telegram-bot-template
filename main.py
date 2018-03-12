@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from hackathon import bot
+from webhook import set_webhook
 import json
 import logging
 import os
@@ -35,19 +36,17 @@ class WebhookHandler(webapp2.RequestHandler):
             logging.error(repr(e))
 
 
-bot.remove_webhook()
-
 if bot.threaded:
     logging.info('Polling...')
+    bot.remove_webhook()
     bot.polling()
     exit(0)
 
-heroku_url = os.environ.get('HEROKU_URL', False)
-if not heroku_url:
-    raise Exception('No se ha definido HEROKU_URL')
+webhook = bot.get_webhook_info()
+if not webhook.url:
+    set_webhook()
 
 logging.info('Listening...')
-bot.set_webhook(url="%s/webhook" % heroku_url.rstrip('/'))
 app = webapp2.WSGIApplication([
     ('/me', MeHandler),
     ('/webhook', WebhookHandler)
