@@ -1,0 +1,25 @@
+{
+  "name": "Hackathon bot in Heroku",
+  "description": ".",
+  "image": "heroku/python",
+  "repository": "https://github.com/aulasoftwarelibre/hackathonbot",
+  "keywords": ["python"],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "The secret bot token.",
+      "required": true
+    },
+    "HEROKU_URL": {
+      "description": "The heroku app public url.",
+      "required": true
+    }
+  }
+}
