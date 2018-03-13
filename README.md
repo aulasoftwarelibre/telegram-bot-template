@@ -134,6 +134,8 @@ Se adjunta una clase Chat que permite almacenar valores en una tabla. Se puede i
 Un ejemplo de uso se encuentra en `commands/db.py`.
 
 
+## Referencias
 
+Para obtener APIs abiertas podeís consultar el siguiente repositorio de Github:
 
-
+* [https://github.com/toddmotto/public-apis](https://github.com/toddmotto/public-apis)
