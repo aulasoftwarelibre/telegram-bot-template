@@ -35,6 +35,34 @@ heroku config
 
 ## Ejecución
 
+### En local
+
+Para instalarlo en local es necesario tener instalado _python2.7_ y _virtualenv_. Por defecto lo tenemos en Ubuntu.
+
+Para instalar _virtualenv_ hacemos lo siguiente:
+
+```sh
+sudo apt-get install virtualenv
+```
+
+A continuación necesitamos tener instaladas las herramientas de _Heroku_. En Ubuntu 17.10 se puede hacer con _snap_:
+
+```sh
+sudo snap install heroku --classic
+```
+
+O podemos seguir [las instrucciones de la web de Heroku](https://devcenter.heroku.com/articles/heroku-cli).
+
+
+
+Ejecutar el bot en local desactiva el _webhook_. Para iniciar en modo local ejecutar lo siguiente:
+
+```
+heroku local polling
+``` 
+
+Si se quiere volver a usar el bot en el servidor, hay que volver a configurar el _webhook_ como dice el apartado anterior.
+
 ### En el servidor
 
 Cuando se despliega el proyecto, Heroku lo configura automáticamente. Si fuera necesario volver a ejecutar el webhook ejecutar lo siguiente:
@@ -50,17 +78,6 @@ python webhook.py
 ```
 
 También se puede iniciar dentro del apartado _Resources_ de la web de Heroku.
-
-### En local
-
-Ejecutar el bot en local desactiva el _webhook_. Para iniciar en modo local ejecutar lo siguiente:
-
-```
-heroku local polling
-``` 
-
-Si se quiere volver a usar el bot en el servidor, hay que volver a configurar el _webhook_ como dice el apartado anterior.
-
 
 ## Funciones
 
