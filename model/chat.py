@@ -1,9 +1,7 @@
 # coding=utf-8
 from datetime import datetime
-from hackathon import app
-from flask_sqlalchemy import SQLAlchemy
+from model import db
 
-db = SQLAlchemy(app)
 
 class Chat(db.Model):
     """Almacén clave/valor para un chat concreto
@@ -18,7 +16,7 @@ class Chat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chat = db.Column(db.BigInteger, nullable=False)
     key = db.Column(db.String(255), nullable=False)
-    value = db.Column(db.String(255), nullable=False)
+    value = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
 
     @staticmethod
@@ -64,4 +62,3 @@ class Chat(db.Model):
         return record
 
 
-db.create_all()
