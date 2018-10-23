@@ -1,7 +1,7 @@
 # coding=utf-8
 from telebot import util
-from hackathon import bot
-from model import chat
+from application import bot
+from model.chat import Chat
 
 
 @bot.message_handler(commands=['save'])
@@ -16,7 +16,7 @@ def save(message):
         return
 
     chat_id = message.chat.id
-    chat.Chat.set_config(chat_id, 'memory', data)
+    Chat.set_config(chat_id, 'memory', data)
     bot.reply_to(message, "Dato guardado. Usa /load para recuperar")
 
 
@@ -27,7 +27,7 @@ def load(message):
     """
 
     chat_id = message.chat.id
-    data = chat.Chat.get_config(chat_id, 'memory')
+    data = Chat.get_config(chat_id, 'memory')
     if not data:
         bot.reply_to(message, "Aún no has guardado nada")
         return

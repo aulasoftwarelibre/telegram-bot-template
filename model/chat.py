@@ -2,7 +2,6 @@
 from datetime import datetime
 from model import db
 
-
 class Chat(db.Model):
     """Almacén clave/valor para un chat concreto
 

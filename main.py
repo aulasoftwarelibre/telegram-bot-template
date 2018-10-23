@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from flask import request
-from hackathon import app, bot, SECRET_TOKEN
+from application import app, bot, SECRET_TOKEN
 from webhook import set_webhook
 import json
 import logging

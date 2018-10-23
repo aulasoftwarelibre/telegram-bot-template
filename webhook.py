@@ -1,6 +1,6 @@
 import logging
 import sys
-from hackathon import bot, SECRET_TOKEN, HEROKU_APP_NAME
+from application import bot, SECRET_TOKEN, HEROKU_APP_NAME
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 

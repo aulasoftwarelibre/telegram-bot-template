@@ -1,8 +1,10 @@
 # coding=utf-8
+
+import os
+
 from flask import Flask
 from telebot import TeleBot
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -28,4 +30,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-import command
+# Add more files here
+from application import db
+from application import commands

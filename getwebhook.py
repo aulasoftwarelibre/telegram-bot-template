@@ -1,6 +1,6 @@
 import logging
 import sys
-from hackathon import bot
+from application import bot
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
