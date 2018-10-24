@@ -1,9 +1,8 @@
-# Hackathon bot 
+# Hackathon bot
 
-Ejemplo de bot desplegado en Heroku para el hackathon del Aula de Software Libre de marzo de 2018.
+Ejemplo de bot desplegado en Heroku para el hackathon del Aula de Software Libre.
 
-
-## Instalación
+## Instalación en el servidor
 
 Es imprescindible tener cuenta en Heroku para acelerar la instalación. Para desplegar la aplicación en heroku pulse el siguiente botón:
 
@@ -11,10 +10,15 @@ Es imprescindible tener cuenta en Heroku para acelerar la instalación. Para des
 
 Cuando _Heroku_ se lo solicite indique el token de su bot. El nombre de la aplicación debe coincidir con el dato solicitado en _HEROKU_APP_NAME_.
 
+Una vez _Heroku_ termine de desplegar la aplicación, el bot estaré listo para ser usado.
+
+## Instalación en local
+
+Si bien podemos tener el entorno de producción en _Heroku_, también tendremos un entorno de desarrollo donde ir probando nuestro bot. Es importante no compartir el mismo token del bot de producción con el que se tenga en desarrollo. Se recomienda que cada miembro del equipo se cree un bot de desarrollo propio.
 
 ## Configuración
 
-Dentro del archivo `__hackathon/__init.py__` se inicializan las variables necesarias para que el bot funcione.
+Dentro del archivo `__application/__init.py__` se inicializan las variables necesarias para que el bot funcione.
 
 Este archivo exporta principalmente dos variables:
 
@@ -23,65 +27,37 @@ Este archivo exporta principalmente dos variables:
 
 Para configurar las variables que necesitamos en local copiar el archivo siguiente:
 
-```
-cp .env.dist .env
-```
+    cp .env.dist .env
 
-Hay algunos valores que están en blanco, su valor debe ser el mismo que aparece en Heroku. Los podemos ver dentro de la sección _Setting_ del _backend_ o ejecutando lo siguiente:
-
-```
-heroku config
-```
+Editar el archivo _.env_ y configuramos el _token_ de nuestro _bot_. El resto de variables se puede dejar como están.
 
 ## Ejecución
 
 ### En local
 
-Para instalarlo en local es necesario tener instalado _python2.7_ y _virtualenv_. Por defecto lo tenemos en Ubuntu.
+Para instalarlo en local es necesario tener instalado _python2.7_ o _python3.x_ y _virtualenv_. Python viene instalado por defecto en cualquier distribución, pero _virtualenv_ es probable que no.
 
-Para instalar _virtualenv_ hacemos lo siguiente:
+Para instalar _virtualenv_ en _Debian_/_Ubuntu_ hacemos lo siguiente:
 
 ```sh
 sudo apt-get install virtualenv
 ```
 
-A continuación necesitamos tener instaladas las herramientas de _Heroku_. En Ubuntu 17.10 se puede hacer con _snap_:
+Una vez instalados vamos a instalar las dependencias e iniciar el entorno virtual de python:
 
-```sh
-sudo snap install heroku --classic
-```
+    virtualenv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
 
-O podemos seguir [las instrucciones de la web de Heroku](https://devcenter.heroku.com/articles/heroku-cli).
+Ahora para iniciar el bot, todo lo que debemos hace es ejecutar el archivo _main.py_.
 
+    python main.py
 
-
-Ejecutar el bot en local desactiva el _webhook_. Para iniciar en modo local ejecutar lo siguiente:
-
-```
-heroku local polling
-``` 
-
-Si se quiere volver a usar el bot en el servidor, hay que volver a configurar el _webhook_ como dice el apartado anterior.
-
-### En el servidor
-
-Cuando se despliega el proyecto, Heroku lo configura automáticamente. Si fuera necesario volver a ejecutar el webhook ejecutar lo siguiente:
-
-```
-heroku run webhook
-```
-
-O si tenemos configurado el _.env_:
-
-```
-python webhook.py
-```
-
-También se puede iniciar dentro del apartado _Resources_ de la web de Heroku.
+Siempre debemos hacerlo en una consola con el entorno virtual cargado.
 
 ## Funciones
 
-Dentro del directorio `command` se pueden añadir nuevas funciones, ya sea en los archivos existentes o en archivos nuevos.
+Dentro del directorio `application` se pueden añadir nuevas funciones, ya sea en los archivos existentes o en archivos nuevos.
 
 Las funciones de _Telegram_, ya sean comandos o expresiones regulares, irán con la anotación correspondiente que permite la librería _pyTelegramBotAPI_.
 
@@ -91,7 +67,7 @@ Un template para un nuevo archivo de funciones es el siguiente:
 
 ```python
 # coding=utf-8
-from hackathon import bot
+from application import bot
 
 
 @bot.message_handler(commands=['test'])
@@ -100,8 +76,7 @@ def test(message):
 
 ```
 
-Es necesario importar el fichero en `command/__init__.py` donde se indica.
-
+Es necesario importar ese nuevo fichero en `application/__init__.py` donde se indica (al final del archivo). El orden es importante, porque la primera orden que coincida es la que se ejecuta.
 
 ## Base de datos
 
@@ -131,7 +106,7 @@ Es necesario importar el fichero en `model/__init__.py` donde se indica.
 
 Se adjunta una clase Chat que permite almacenar valores en una tabla. Se puede indicar el chat asociado al dato (chat), el nombre del dato (key) y su valor (value). Si se quiere un dato que exista para cualquier chat se puede usar como identificador de chat el 0 (cero).
 
-Un ejemplo de uso se encuentra en `commands/db.py`.
+Un ejemplo de uso se encuentra en `application/db.py`.
 
 
 ## Referencias
