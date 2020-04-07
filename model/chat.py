@@ -2,6 +2,7 @@
 from datetime import datetime
 from model import db
 
+
 class Chat(db.Model):
     """Almacén clave/valor para un chat concreto
 
@@ -33,7 +34,8 @@ class Chat(db.Model):
         record = db.session.query(Chat).filter_by(chat=chat, key=key).first()
 
         if record is None:
-            record = Chat(chat=chat, key=key, value=value, created_at=datetime.now())
+            record = Chat(chat=chat, key=key, value=value,
+                          created_at=datetime.now())
             db.session.add(record)
         else:
             record.value = value
@@ -59,5 +61,3 @@ class Chat(db.Model):
         db.session.close()
 
         return record
-
-

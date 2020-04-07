@@ -1,4 +1,3 @@
-# coding=utf-8
 from telebot import util
 from application import bot
 from model.chat import Chat
