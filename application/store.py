@@ -15,7 +15,7 @@ def save(message):
         return
 
     chat_id = message.chat.id
-    Chat.set_config(chat_id, 'memory', data)
+    Chat.set(chat_id, 'memory', data)
     bot.reply_to(message, "Dato guardado. Usa /load para recuperar")
 
 
@@ -26,9 +26,9 @@ def load(message):
     """
 
     chat_id = message.chat.id
-    data = Chat.get_config(chat_id, 'memory')
+    data = Chat.get(chat_id, 'memory')
     if not data:
         bot.reply_to(message, "Aún no has guardado nada")
         return
 
-    bot.reply_to(message, "Dato recuperado: %s" % data.value)
+    bot.reply_to(message, "Dato recuperado: %s" % data)

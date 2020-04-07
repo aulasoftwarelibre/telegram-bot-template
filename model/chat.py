@@ -20,7 +20,7 @@ class Chat(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
 
     @staticmethod
-    def set_config(chat, key, value):
+    def set(chat, key, value):
         """Guarda un valor
 
         Args:
@@ -45,6 +45,22 @@ class Chat(db.Model):
         db.session.close()
 
         return record
+
+    @staticmethod
+    def get(chat, key):
+        """ Recupera un valor
+
+        Args:
+            :param chat: Id. del chat
+            :param key: Clave del valor a recuperar
+
+        Returns:
+            :return: Instancia de Chat que coincide con la clave o None si no existe
+        """
+        record = db.session.query(Chat).filter_by(chat=chat, key=key).first()
+        db.session.close()
+
+        return record.value
 
     @staticmethod
     def get_config(chat, key):
