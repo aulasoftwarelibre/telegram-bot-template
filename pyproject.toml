@@ -1,0 +1,96 @@
+[tool.poetry]
+name = "tgbot"
+version = "0.1.0"
+description = "Telegram Bot Template"
+authors = ["Sergio Gómez Bachiller <sergio@uco.es>"]
+license = "EUPL-1.2"
+readme = "README.md"
+packages = [{include = "tgbot", from = "src"}]
+
+[tool.poetry.scripts]
+cli = "tgbot.infrastructure.cli:app"
+server = "tgbot.infrastructure.api:main"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.108.0"}
+pytelegrambotapi = "^4.14.1"
+typer = {extras = ["all"], version = "^0.9.0"}
+tortoise-orm = {extras = ["asyncpg"], version = "^0.20.0"}
+aiohttp = "^3.9.1"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+ruff = "^0.1.11"
+pre-commit = "^3.6.0"
+black = "^23.12.1"
+commitizen = "^3.13.0"
+tortoise-orm-stubs = "^1.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver"
+version_provider = "poetry"
+update_changelog_on_bump = true
+major_version_zero = true
+
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "telebot.*"
+ignore_missing_imports = true
+disallow_untyped_calls = true
+strict = false
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["tests"]
+select = [
+  "A",      # flake8-builtins
+  "ARG",    # flake8-unused-arguments
+  "B",      # flake8-bugbear
+  "BLE",    # flake8-blind-except
+  "C",      # flake8-comprehensions
+  "E",      # pycodestyle errors
+  "W",      # pycodestyle warnings
+  "ERA",    # eradicate
+  "F",      # pyflakes
+  "G",      # flake8-logging-format
+  "I",      # isort
+  "PL",     # pylint
+  "RUF100", # Ruff-specific rules
+  "S",      # flake8-bandit
+  "UP",     # pyupgrade
+]
+ignore = [
+  "A003",    # builtin-attribute-shadowing
+  "ARG001",  # unused function argument
+  "ARG002",  # unused method argument
+  "B008",    # do not perform function calls in argument defaults
+  "E501",    # line too long, handled by black
+  "PLR0913", # too many arguments,
+]
+
+
+[tool.ruff.isort]
+known-first-party = ["tgbot", "tests"]

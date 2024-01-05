@@ -1,0 +1,42 @@
+fail_fast: true
+repos:
+- hooks:
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+- hooks:
+  - args:
+    - --fix
+    id: ruff
+  - id: ruff-format
+  repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.1.11
+- hooks:
+  - id: commitizen
+  - id: commitizen-branch
+    stages:
+    - push
+  repo: https://github.com/commitizen-tools/commitizen
+  rev: v3.13.0
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.3.0
+  hooks:
+    - id: mypy
+      name: mypy in cli
+      args:
+        [
+          "--config-file",
+          "pyproject.toml",
+          "--python-executable",
+          ".venv/bin/python",
+        ]
+      additional_dependencies: [types-all, pydantic]
+      types: [python]
+      files: ^src/
+      language_version: "3.10"
