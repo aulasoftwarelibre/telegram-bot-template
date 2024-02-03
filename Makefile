@@ -12,6 +12,10 @@ certs:
 configure:
 	poetry run cli configure
 
-.PHONY: serve
-serve:
+.PHONY: server
+server:
+	poetry run server
+
+.PHONY: dev
+dev:
 	poetry run cli serve

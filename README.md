@@ -1,6 +1,6 @@
 # Telegram Bot Template
 
-Template for creating Telegram bots.
+This project provides a template for creating a Telegram bot using Python. It includes a CLI for managing the bot, a web controller using FastAPI for webhook integration, and a PostgreSQL database setup with Docker.
 
 ## Local Installation
 
@@ -42,11 +42,27 @@ The first step is to install the dependencies:
 
 Then, you can start the service in polling mode:
 
-    make serve
+    make dev
 
 The bot should now be able to respond.
 
-### Commands
+### In a server
+
+The first step is to install the dependencies:
+
+    poetry install
+
+And configure the webhook to receive the updates:
+
+    make configure
+
+Then, you can start the service in push mode:
+
+    make server
+
+The bot should now be able to respond.
+
+## Commands
 
 The bot supports the following commands. If anything else is sent, the bot will respond in echo mode (returns what is sent to it).
 
