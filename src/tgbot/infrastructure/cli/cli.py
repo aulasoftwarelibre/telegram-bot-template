@@ -9,7 +9,6 @@ from tgbot.infrastructure.cli.AsyncTyper import AsyncTyper
 
 from ..bot import bot
 from ..config import settings
-from ..orm.orm import init, setup
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
@@ -20,12 +19,6 @@ app = AsyncTyper()
 @app.command()
 def about() -> None:
     typer.echo("This is a bot created from aulasoftwarelibre/telegram-bot-template")
-
-
-@app.async_command()
-async def configure() -> None:
-    """Configure the database schema."""
-    await setup()
 
 
 @app.async_command()
@@ -75,7 +68,6 @@ async def install() -> None:
 async def serve() -> None:
     """Run polling bot version."""
     logging.info("Starting...")
-    await init()
 
     await bot.remove_webhook()
     await bot.infinity_polling(logger_level=logging.INFO)

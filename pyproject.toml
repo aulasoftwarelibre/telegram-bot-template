@@ -17,7 +17,6 @@ python = "^3.10"
 fastapi = {extras = ["all"], version = "^0.109.0"}
 pytelegrambotapi = "^4.14.1"
 typer = {extras = ["all"], version = "^0.9.0"}
-tortoise-orm = {extras = ["asyncpg"], version = "^0.20.0"}
 aiohttp = "^3.9.1"
 
 
@@ -27,7 +26,6 @@ ruff = "^0.2.0"
 pre-commit = "^3.6.0"
 black = "^24.1.1"
 commitizen = "^3.13.0"
-tortoise-orm-stubs = "^1.0.2"
 
 
 [build-system]

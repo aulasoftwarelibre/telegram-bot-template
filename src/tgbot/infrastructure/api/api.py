@@ -1,20 +1,11 @@
 import telebot
 import uvicorn
 from fastapi import FastAPI
-from tortoise.contrib.fastapi import register_tortoise
 
 from ..bot import bot
 from ..config import settings
 
 app = FastAPI()
-
-register_tortoise(
-    app,
-    db_url=settings.database_url,
-    modules={"models": ["tgbot.infrastructure.orm"]},
-    generate_schemas=False,
-    add_exception_handlers=True,
-)
 
 
 @app.get("/")
